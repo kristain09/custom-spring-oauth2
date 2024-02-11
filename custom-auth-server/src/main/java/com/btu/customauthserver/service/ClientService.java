@@ -3,6 +3,7 @@ package com.btu.customauthserver.service;
 import com.btu.customauthserver.entities.AuthClient;
 import com.btu.customauthserver.repositories.AuthClientRepository;
 import com.btu.customauthserver.util.RegisteredClientMapper;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes;
@@ -30,6 +31,7 @@ public class ClientService implements RegisteredClientRepository {
         AuthClient authClient = clientRepository.findById(Long.parseLong(id)).orElseThrow();
         return RegisteredClientMapper.toRegisteredClient(authClient);
     }
+
 
     @Override
     public RegisteredClient findByClientId(String clientId) {

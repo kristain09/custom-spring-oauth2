@@ -82,15 +82,15 @@ public class SecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        var u1 = User.withUsername("user")
-                .password("password")
-                .authorities("read")
-                .build();
-
-        return new InMemoryUserDetailsManager(u1);
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        var u1 = User.withUsername("user")
+//                .password("password")
+//                .authorities("read")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(u1);
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

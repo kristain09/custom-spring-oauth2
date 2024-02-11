@@ -6,8 +6,6 @@ import lombok.Setter;
 
 import java.util.Set;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "m_grant_types", schema = "\"authorization\"")
 public class GrantType {
@@ -45,4 +43,5 @@ public class GrantType {
     public void setClients(Set<AuthClient> clients) {
         this.clients = clients;
     }
+
 }
