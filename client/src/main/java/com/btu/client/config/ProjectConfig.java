@@ -62,7 +62,6 @@ public class ProjectConfig {
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .tokenUri("http://localhost:8080/oauth2/token")
-                .scope(OidcScopes.OPENID)
                 .build();
 
         InMemoryClientRegistrationRepository clientRegistrationRepository =

@@ -19,16 +19,13 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
-import org.springframework.security.oauth2.core.oidc.OidcScopes;
 import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationCodeRequestAuthenticationProvider;
-import org.springframework.security.oauth2.server.authorization.authentication.OAuth2AuthorizationCodeRequestAuthenticationToken;
 import org.springframework.security.oauth2.server.authorization.client.InMemoryRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClient;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configuration.OAuth2AuthorizationServerConfiguration;
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
 import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
 import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.oauth2.server.authorization.token.JwtEncodingContext;
@@ -55,8 +52,7 @@ public class SecurityConfig {
         OAuth2AuthorizationServerConfiguration.applyDefaultSecurity(http);
 
         http.getConfigurer(OAuth2AuthorizationServerConfigurer.class)
-                .authorizationEndpoint(a -> a.authenticationProviders(getAuthorizationEndpointProvider()))
-                .oidc(Customizer.withDefaults());
+                .authorizationEndpoint(a -> a.authenticationProviders(getAuthorizationEndpointProvider()));
 
         http.exceptionHandling(
                 e -> e.authenticationEntryPoint(
@@ -101,29 +97,29 @@ public class SecurityConfig {
         return NoOpPasswordEncoder.getInstance();
     }
 
-    @Bean
-    public RegisteredClientRepository registeredClientRepository() {
-        RegisteredClient r1 = RegisteredClient.withId(UUID.randomUUID().toString())
-                .clientId("client")
-                .clientSecret("secret")
-                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-                .scope(OidcScopes.OPENID)
-                .scope(OidcScopes.PROFILE)
-                .redirectUri("https://springone.io/authorized")
-                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
-                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .tokenSettings(
-                        TokenSettings.builder()
-                                .accessTokenTimeToLive(Duration.ofHours(6))
-                                .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
-                                .build()
-                )
 
-                .build();
+//    @Bean
+//    public RegisteredClientRepository registeredClientRepository() {
+//        RegisteredClient r1 = RegisteredClient.withId(UUID.randomUUID().toString())
+//                .clientId("client")
+//                .clientSecret("secret")
+//                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+//                .redirectUri("https://springone.io/authorized")
+//                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+//                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+//                .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
+//                .tokenSettings(
+//                        TokenSettings.builder()
+//                                .accessTokenTimeToLive(Duration.ofHours(6))
+//                                .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED)
+//                                .build()
+//                )
+//
+//                .build();
+//
+//        return new InMemoryRegisteredClientRepository(r1);
+//    }
 
-        return new InMemoryRegisteredClientRepository(r1);
-    }
 
     @Bean
     public AuthorizationServerSettings authorizationServerSettings() {
