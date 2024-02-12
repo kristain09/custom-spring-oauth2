@@ -1,6 +1,5 @@
 package com.btu.customauthserver.model;
 
-import com.btu.customauthserver.entities.GrantType;
 import com.btu.customauthserver.entities.ProgramUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
